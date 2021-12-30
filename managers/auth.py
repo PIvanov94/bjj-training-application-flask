@@ -10,7 +10,7 @@ class AuthManger:
         payload = {
             "sub": user.id,
             "exp": datetime.utcnow() + timedelta(days=100),
-            "role": user.__class__.__name__
+            "role": user.__class__.__name__,
         }
         return jwt.encode(payload, key=config("JWT_KEY"), algorithm="HS256")
 
