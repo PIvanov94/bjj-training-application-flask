@@ -11,7 +11,11 @@ class BaseUserSchema(Schema):
     )
 
 
-class StudentRegisterSchema(BaseUserSchema):
+class StudentLoginRequestSchema(BaseUserSchema):
+    pass
+
+
+class StudentRegisterRequestSchema(BaseUserSchema):
     first_name = fields.String(required=True, validate=validate.Length(min=2, max=255))
     last_name = fields.String(required=True, validate=validate.Length(min=2, max=255))
     phone = fields.String(required=True, validate=validate.Length(min=10, max=12))
