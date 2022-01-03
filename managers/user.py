@@ -16,9 +16,13 @@ class UserManager:
             db.session.flush()
         except Exception as ex:
             if ex.orig.pgcode == UNIQUE_VIOLATION:
-                raise BadRequest("This email address is already registered. Please login.")
+                raise BadRequest(
+                    "This email address is already registered. Please login."
+                )
             else:
-                raise InternalServerError("Server is unavailable at the moment. Try again later.")
+                raise InternalServerError(
+                    "Server is unavailable at the moment. Try again later."
+                )
         return user
 
     @staticmethod
