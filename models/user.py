@@ -16,14 +16,14 @@ class BaseUserModel(db.Model):
 class StudentModel(BaseUserModel):
     __tablename__ = "students"
 
-    belt = db.Column(db.String(255))
+    belt = db.Column(db.String(255), nullable=False)
     role = db.Column(db.Enum(RoleType), default=RoleType.student, nullable=False)
 
 
 class CoachModel(BaseUserModel):
     __tablename__ = "coaches"
 
-    belt = db.Column(db.String(255))
+    belt = db.Column(db.String(255), nullable=False)
     role = db.Column(db.Enum(RoleType), default=RoleType.coach, nullable=False)
 
 
