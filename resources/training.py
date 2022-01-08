@@ -16,4 +16,5 @@ class ListCreateTraining(Resource):
     @permission_required(RoleType.coach)
     @validate_schema(TrainingCreateRequestSchema)
     def post(self):
-        training = TrainingManager.create(request.get_json())
+        current_user = auth.current_user()
+        TrainingManager.create(request.get_json(), current_user.id)

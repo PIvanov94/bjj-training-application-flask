@@ -1,2 +1,2 @@
-from models.user import *
 from models.training import *
+from models.user import *

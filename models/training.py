@@ -9,14 +9,20 @@ class BaseTrainingModel(db.Model):
     starting_time = db.Column(db.String(50), nullable=False)
     note = db.Column(db.Text, nullable=False)
     photo_url = db.Column(db.String(255), nullable=False)
-    participants_id = db.Column(db.Integer, db.ForeignKey("students.id"))
-    participants = db.relationship("StudentModel")
+    # participants_id = db.Column(db.Integer, db.ForeignKey("students.id"))
+    participants = db.Column(db.Text)
 
 
 class BeginnersTrainingModel(BaseTrainingModel):
     __tablename__ = "beginners"
 
+    coach_id = db.Column(db.Integer, db.ForeignKey("coaches.id"))
+    coach = db.relationship("CoachModel")
 
-class AdvancedTrainingModels(BaseTrainingModel):
+
+class AdvancedTrainingModel(BaseTrainingModel):
     __tablename__ = "advanced"
+
+    coach_id = db.Column(db.Integer, db.ForeignKey("coaches.id"))
+    coach = db.relationship("CoachModel")
 

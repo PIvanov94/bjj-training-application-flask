@@ -3,7 +3,7 @@ from werkzeug.exceptions import BadRequest, InternalServerError
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from db import db
-from models.user import StudentModel
+from models.user import StudentModel, CoachModel
 
 
 class UserManager:
@@ -28,6 +28,13 @@ class UserManager:
     @staticmethod
     def login(user_data):
         user = StudentModel.query.filter_by(email=user_data["email"]).first()
+        if not user or not check_password_hash(user.password, user_data["password"]):
+            raise BadRequest("Wrong email or password")
+        return user
+
+    @staticmethod
+    def login_coach(user_data):
+        user = CoachModel.query.filter_by(email=user_data["email"]).first()
         if not user or not check_password_hash(user.password, user_data["password"]):
             raise BadRequest("Wrong email or password")
         return user
