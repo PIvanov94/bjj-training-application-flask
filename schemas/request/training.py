@@ -1,9 +1,8 @@
 from marshmallow import Schema, fields, validate
 
+from schemas.bases import BaseTrainingSchema
 
-class TrainingCreateRequestSchema(Schema):
-    title = fields.String(required=True, validate=validate.Length(max=100))
-    starting_time = fields.String(required=True, validate=validate.Length(max=50))
-    group = fields.String(required=True, validate=validate.Length(max=50))
-    note = fields.String(required=True, validate=validate.Length(max=100))
-    photo_url = fields.String(required=True, validate=validate.Length(max=255))
+
+class TrainingCreateRequestSchema(BaseTrainingSchema):
+    photo = fields.String(required=True)
+    photo_extension = fields.String(required=True)

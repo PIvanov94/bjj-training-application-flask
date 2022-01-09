@@ -4,6 +4,10 @@ from db import db
 
 class TrainingManager:
     @staticmethod
+    def get_all():
+        return BeginnersTrainingModel.query.all()
+
+    @staticmethod
     def create(training_data, coach):
         training_data["coach_id"] = coach.id
         group = training_data["group"]

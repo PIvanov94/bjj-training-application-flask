@@ -5,12 +5,17 @@ from managers.auth import auth
 from managers.training import TrainingManager
 from models import RoleType
 from schemas.request.training import TrainingCreateRequestSchema
+from schemas.response.training import TrainingCreateResponseSchema
 from util.decorators import validate_schema, permission_required
 
 
 class ListCreateTraining(Resource):
+    """TODO: Make possible to show all trainings (beginners ana advanced classes)"""
+    @auth.login_required
     def get(self):
-        pass
+        trainings = TrainingManager.get_all()
+        schema = TrainingCreateResponseSchema()
+        return schema.dump(trainings, many=True)
 
     @auth.login_required
     @permission_required(RoleType.coach)
