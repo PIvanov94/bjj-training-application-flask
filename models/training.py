@@ -18,6 +18,7 @@ class BeginnersTrainingModel(BaseTrainingModel):
 
     coach_id = db.Column(db.Integer, db.ForeignKey("coaches.id"))
     coach = db.relationship("CoachModel")
+    group = db.Column(db.String(100), nullable=False)
 
 
 class AdvancedTrainingModel(BaseTrainingModel):
@@ -25,4 +26,5 @@ class AdvancedTrainingModel(BaseTrainingModel):
 
     coach_id = db.Column(db.Integer, db.ForeignKey("coaches.id"))
     coach = db.relationship("CoachModel")
+    group = db.Column(db.String(100), nullable=False)
 

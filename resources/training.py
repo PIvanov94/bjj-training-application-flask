@@ -17,4 +17,6 @@ class ListCreateTraining(Resource):
     @validate_schema(TrainingCreateRequestSchema)
     def post(self):
         current_user = auth.current_user()
-        TrainingManager.create(request.get_json(), current_user.id)
+        training = TrainingManager.create(request.get_json(), current_user)
+        schema = TrainingCreateRequestSchema()
+        return schema.dump(training), 201

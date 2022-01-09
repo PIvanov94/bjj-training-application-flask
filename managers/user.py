@@ -35,7 +35,7 @@ class UserManager:
         except Exception as ex:
             if ex.orig.pgcode == UNIQUE_VIOLATION:
                 raise BadRequest(
-                    "This email address is already registered. Please login."
+                    "This user is already authorized as administrator."
                 )
             else:
                 raise InternalServerError(
@@ -49,11 +49,11 @@ class UserManager:
         user = CoachModel(**user_data)
         try:
             db.session.add(user)
-            db.session.commit()
+            db.session.flush()
         except Exception as ex:
             if ex.orig.pgcode == UNIQUE_VIOLATION:
                 raise BadRequest(
-                    "This email address is already registered. Please login."
+                    "This user is already authorized as coach."
                 )
             else:
                 raise InternalServerError(
