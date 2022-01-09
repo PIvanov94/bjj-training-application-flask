@@ -2,8 +2,9 @@ from flask import request
 from flask_restful import Resource
 
 from managers.auth import AuthManger
-from managers.user import UserManager
-from schemas.request.user import StudentRegisterRequestSchema, StudentLoginRequestSchema, CoachLoginRequestSchema
+from managers.user import UserManager, AdminManager
+from schemas.request.user import StudentRegisterRequestSchema, StudentLoginRequestSchema, CoachLoginRequestSchema, \
+    AdminLoginRequestSchema
 from util.decorators import validate_schema
 
 
@@ -28,4 +29,12 @@ class LoginCoach(Resource):
     def post(self):
         user = UserManager.login(request.get_json())
         token = AuthManger.encode_token(user)
+        return {"token": token}, 200
+
+
+class LoginAdmin(Resource):
+    @validate_schema(AdminLoginRequestSchema)
+    def post(self):
+        admin = AdminManager.login(request.get_json())
+        token = AuthManger.encode_token(admin)
         return {"token": token}, 200

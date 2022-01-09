@@ -74,3 +74,12 @@ class UserManager:
         if not user or not check_password_hash(user.password, user_data["password"]):
             raise BadRequest("Wrong email or password")
         return user
+
+
+class AdminManager:
+    @staticmethod
+    def login(user_data):
+        admin = AdminModel.query.filter_by(email=user_data["email"]).first()
+        if not admin or not check_password_hash(admin.password, user_data["password"]):
+            raise BadRequest("Wrong email or password")
+        return admin

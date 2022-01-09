@@ -19,6 +19,10 @@ class CoachLoginRequestSchema(BaseUserSchema):
     pass
 
 
+class AdminLoginRequestSchema(BaseUserSchema):
+    pass
+
+
 class StudentRegisterRequestSchema(BaseUserSchema):
     first_name = fields.String(required=True, validate=validate.Length(min=2, max=255))
     last_name = fields.String(required=True, validate=validate.Length(min=2, max=255))
