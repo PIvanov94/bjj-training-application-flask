@@ -24,3 +24,9 @@ class StudentRegisterRequestSchema(BaseUserSchema):
     last_name = fields.String(required=True, validate=validate.Length(min=2, max=255))
     phone = fields.String(required=True, validate=validate.Length(min=10, max=12))
     belt = fields.String(validate=validate.Length(max=255))
+
+
+class RequestCreateAdminSchema(BaseUserSchema):
+    first_name = fields.String(required=True, validate=validate.Length(min=2, max=255))
+    last_name = fields.String(required=True, validate=validate.Length(min=2, max=255))
+    phone = fields.String(required=True, validate=validate.Length(min=10, max=12))
