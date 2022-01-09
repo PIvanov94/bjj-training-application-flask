@@ -49,7 +49,7 @@ class UserManager:
         user = CoachModel(**user_data)
         try:
             db.session.add(user)
-            db.session.flush()
+            db.session.commit()
         except Exception as ex:
             if ex.orig.pgcode == UNIQUE_VIOLATION:
                 raise BadRequest(
@@ -68,13 +68,6 @@ class UserManager:
             raise BadRequest("Wrong email or password")
         return user
 
-    @staticmethod
-    def login_coach(user_data):
-        user = CoachModel.query.filter_by(email=user_data["email"]).first()
-        if not user or not check_password_hash(user.password, user_data["password"]):
-            raise BadRequest("Wrong email or password")
-        return user
-
 
 class AdminManager:
     @staticmethod
@@ -83,3 +76,12 @@ class AdminManager:
         if not admin or not check_password_hash(admin.password, user_data["password"]):
             raise BadRequest("Wrong email or password")
         return admin
+
+
+class CoachManager:
+    @staticmethod
+    def login(user_data):
+        user = CoachModel.query.filter_by(email=user_data["email"]).first()
+        if not user or not check_password_hash(user.password, user_data["password"]):
+            raise BadRequest("Wrong email or password")
+        return user
