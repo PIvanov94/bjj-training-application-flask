@@ -23,5 +23,20 @@ class ListCreateTraining(Resource):
     def post(self):
         current_user = auth.current_user()
         training = TrainingManager.create(request.get_json(), current_user)
-        schema = TrainingCreateRequestSchema()
+        schema = TrainingCreateResponseSchema()
         return schema.dump(training), 201
+
+
+class TrainingDetail(Resource):
+    @auth.login_required
+    @permission_required(RoleType.coach)
+    @validate_schema(TrainingCreateRequestSchema)
+    def put(self, id_):
+        updated_training = TrainingManager.update(request.get_json(), id_)
+        schema = TrainingCreateRequestSchema()
+        return schema.dump(updated_training)
+
+    @auth.login_required
+    @permission_required(RoleType.coach)
+    def delete(self, id_):
+        pass
