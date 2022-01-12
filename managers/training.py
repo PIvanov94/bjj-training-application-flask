@@ -57,3 +57,13 @@ class TrainingManager:
             db.session.add(training)
             db.session.flush()
         return training
+
+    @staticmethod
+    def join_student(id_):
+        """Continue the logic!"""
+        training_query = BeginnersTrainingModel.query.filter_by(id=id_)
+        training = training_query.first()
+        if not training:
+            raise NotFound("There is no such training")
+
+        training_query.update()

@@ -40,3 +40,12 @@ class TrainingDetail(Resource):
     @permission_required(RoleType.coach)
     def delete(self, id_):
         pass
+
+
+class BeginnersJoinTraining(Resource):
+    @auth.login_required
+    @permission_required(RoleType.student)
+    def put(self, id_):
+        training = TrainingManager.join_student(id_)
+        schema = TrainingCreateResponseSchema()
+        return schema.dump(training)
