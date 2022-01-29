@@ -13,7 +13,7 @@ class UserManager:
         user = StudentModel(**user_data)
         try:
             db.session.add(user)
-            db.session.flush()
+            db.session.commit()
         except Exception as ex:
             if ex.orig.pgcode == UNIQUE_VIOLATION:
                 raise BadRequest(

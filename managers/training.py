@@ -59,11 +59,14 @@ class TrainingManager:
         return training
 
     @staticmethod
-    def join_student(id_):
-        """Continue the logic!"""
+    def join_student(id_, student):
         training_query = BeginnersTrainingModel.query.filter_by(id=id_)
         training = training_query.first()
         if not training:
             raise NotFound("There is no such training")
 
-        training_query.update()
+        full_name = f"{student.first_name} {student.last_name}"
+        training_query.update({"participants": full_name})
+        db.session.add(training)
+        db.session.commit()
+        return training

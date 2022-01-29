@@ -46,6 +46,7 @@ class BeginnersJoinTraining(Resource):
     @auth.login_required
     @permission_required(RoleType.student)
     def put(self, id_):
-        training = TrainingManager.join_student(id_)
+        current_user_name = auth.current_user()
+        training = TrainingManager.join_student(id_, current_user_name)
         schema = TrainingCreateResponseSchema()
         return schema.dump(training)
